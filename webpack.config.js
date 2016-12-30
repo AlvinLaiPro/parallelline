@@ -76,7 +76,9 @@ module.exports = {
 		}),
 		new ExtractTextPlugin("styles.css"),
 		new HtmlWebpackPlugin({
+			favicon: 'resources/favicon.ico',
 			template: 'src/index.html',
+			title: 'parallelLine',
 			css: ['styles.css']
 		}),
 		new CleanWebpackPlugin(['dist']),

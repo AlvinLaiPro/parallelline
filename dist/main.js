@@ -8198,7 +8198,7 @@
 
 	var _run2 = _interopRequireDefault(_run);
 
-	var _layout = __webpack_require__(423);
+	var _layout = __webpack_require__(424);
 
 	var _layout2 = _interopRequireDefault(_layout);
 
@@ -18454,7 +18454,7 @@
 
 	var _AppControl2 = _interopRequireDefault(_AppControl);
 
-	var _css = __webpack_require__(398);
+	var _css = __webpack_require__(399);
 
 	var _css2 = _interopRequireDefault(_css);
 
@@ -18506,7 +18506,7 @@
 
 	var _GraphControl2 = _interopRequireDefault(_GraphControl);
 
-	var _FunctionControl = __webpack_require__(392);
+	var _FunctionControl = __webpack_require__(393);
 
 	var _FunctionControl2 = _interopRequireDefault(_FunctionControl);
 
@@ -20704,7 +20704,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Snap = __webpack_require__(424);
+	var Snap = __webpack_require__(392);
 
 	var GraphControl = function (_BaseControl) {
 		(0, _inherits3.default)(GraphControl, _BaseControl);
@@ -22443,485 +22443,6 @@
 
 /***/ },
 /* 392 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function($) {"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _getIterator2 = __webpack_require__(393);
-
-	var _getIterator3 = _interopRequireDefault(_getIterator2);
-
-	var _getPrototypeOf = __webpack_require__(302);
-
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-	var _classCallCheck2 = __webpack_require__(328);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _possibleConstructorReturn2 = __webpack_require__(329);
-
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-	var _createClass2 = __webpack_require__(376);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	var _inherits2 = __webpack_require__(380);
-
-	var _inherits3 = _interopRequireDefault(_inherits2);
-
-	var _BaseControl2 = __webpack_require__(388);
-
-	var _BaseControl3 = _interopRequireDefault(_BaseControl2);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var FunctionControl = function (_BaseControl) {
-	    (0, _inherits3.default)(FunctionControl, _BaseControl);
-	    (0, _createClass3.default)(FunctionControl, null, [{
-	        key: "getInst",
-	        value: function getInst() {
-	            FunctionControl._inst = FunctionControl._inst || new FunctionControl();
-
-	            return FunctionControl._inst;
-	        }
-
-	        /**
-	         * 构造
-	         */
-
-	        /**
-	         * 单例
-	         */
-
-	    }]);
-
-	    function FunctionControl() {
-	        (0, _classCallCheck3.default)(this, FunctionControl);
-	        return (0, _possibleConstructorReturn3.default)(this, (FunctionControl.__proto__ || (0, _getPrototypeOf2.default)(FunctionControl)).call(this));
-	    }
-
-	    /**
-	     * 初始化事件
-	     */
-
-
-	    (0, _createClass3.default)(FunctionControl, [{
-	        key: "init",
-	        value: function init(app) {
-	            this.app = app; //绑定AppControl到当前对象
-	            /**
-	             * 按钮
-	             */
-	            this.container = this.app.$view.find(".ParallelLines_footer");
-	            this.lineLengthBtn = this.app.$view.find(".lineHeight"); //线段长度
-	            this.proportionBtn = this.app.$view.find(".proportion"); //线段比例
-	            this.addParallelBtn = this.app.$view.find(".addParallel"); //增加平行线
-	            this.deleteParallelBtn = this.app.$view.find(".deleteParallel"); //删除平行线
-	            this.playBtn = this.app.$view.find(".play"); //播放按钮
-	            this.pauseBtn = this.app.$view.find(".pause"); //暂停按钮
-	            this.resetBtn = this.app.$view.find(".reset"); //重置按钮
-	            this.bindEvent();
-	            return this;
-	        }
-
-	        /**
-	         * 绑定事件
-	         */
-
-	    }, {
-	        key: "bindEvent",
-	        value: function bindEvent() {
-	            var that = this;
-	            this.container.on("click", 'li', function (e) {
-	                e.stopPropagation();
-	                var $target = $(this);
-	                if ($target.hasClass('disabled')) {
-	                    return;
-	                }
-	                if ($target.hasClass('reset')) {
-	                    var lineAAngle = 65 * Math.PI / 180,
-	                        lineBAngle = 100 * Math.PI / 180;
-
-	                    that.app.data.animateShow = 0;
-	                    that.app.data.segmentLengthShow = 0;
-	                    that.app.data.segmentRatioShow = 0;
-	                    that.app.data.segmentShow = [];
-	                    that.app.data.showParallelLines = ['l1', 'l2', 'l3'];
-	                    that.app.data.selectedParallelLine = '';
-	                    that.app.data.formulaNeedUpdate = false;
-	                    that.app.data.reset = 0;
-	                    /*
-	                     重置相交线的位置和角度
-	                     */
-	                    that.app.data.lineAX = -that.app.data.lineAX;
-	                    that.app.data.lineBX = -that.app.data.lineBX;
-	                    that.app.config.lineAX = that.app.config.initLeftratios[0] * that.app.GraphControl.svgWidth;
-	                    that.app.config.lineBX = that.app.config.initLeftratios[1] * that.app.GraphControl.svgWidth;
-	                    that.app.data.lineAAngle = lineAAngle;
-	                    that.app.data.lineBAngle = lineBAngle;
-
-	                    /*
-	                    重置平行线的位置
-	                     */
-	                    that.app.data.y1 = -that.app.data.y1;
-	                    that.app.data.y2 = -that.app.data.y2;
-	                    that.app.data.y3 = -that.app.data.y3;
-	                    that.app.data.y4 = -that.app.data.y4;
-	                    that.app.data.y5 = -that.app.data.y5;
-
-	                    return;
-	                }
-	                that.app.data.reset = 1;
-	                if ($target.hasClass('play')) {
-	                    that.app.data.animateShow = 1;
-	                    that.app.data.selectedParallelLine = '';
-	                    return;
-	                }
-	                if ($target.hasClass('pause')) {
-	                    that.app.data.animateShow = 2;
-	                    return;
-	                }
-	                if ($target.hasClass('lineHeight')) {
-	                    that.app.data.segmentLengthShow = +!that.app.data.segmentLengthShow;
-	                    return;
-	                }
-	                if ($target.hasClass('proportion')) {
-	                    that.app.data.segmentRatioShow = +!that.app.data.segmentRatioShow;
-	                    return;
-	                }
-	                if ($target.hasClass('addParallel')) {
-	                    var showParallelLines = that.app.data.showParallelLines.concat();
-	                    showParallelLines.push(that._nextLine(showParallelLines));
-	                    that.app.data.showParallelLines = showParallelLines.concat();
-	                    return;
-	                }
-	                if ($target.hasClass('deleteParallel') && that.app.data) {
-	                    var _showParallelLines = that.app.data.showParallelLines.concat();
-	                    var index = null;
-	                    for (var i = 0; i < _showParallelLines.length; i++) {
-	                        if (_showParallelLines[i] === that.app.data.selectedParallelLine) {
-	                            index = i;
-	                            break;
-	                        }
-	                    }
-	                    _showParallelLines.splice(index, 1);
-	                    that.app.data.showParallelLines = _showParallelLines.concat();
-	                    that.app.data.selectedParallelLine = '';
-	                    return;
-	                }
-	            });
-	        }
-
-	        /**
-	         * 更新按钮状态
-	         * @param item 被更新的数据项的名称
-	         * @param value 被更新的数据项的值
-	         * @param parallelLength 当前平行线的条数,可选，在更新selectedParallelLine时需传入
-	         */
-
-	    }, {
-	        key: "updateButtonState",
-	        value: function updateButtonState(item, value, parallelLength) {
-	            switch (item) {
-	                case 'animateShow':
-	                    {
-	                        /*
-	                        更新其他关系的按钮状态
-	                         */
-	                        if (value > 0) {
-	                            this.proportionBtn.addClass("disabled");
-	                            this.addParallelBtn.addClass("disabled");
-	                            this.deleteParallelBtn.addClass("disabled");
-	                        } else {
-	                            this.proportionBtn.removeClass("disabled");
-	                            this.deleteParallelBtn.removeClass("disabled");
-	                            if (this.app.data && this.app.data['showParallelLines'].length > 4) {
-	                                this.addParallelBtn.addClass("disabled");
-	                            } else {
-	                                this.addParallelBtn.removeClass("disabled");
-	                            }
-	                        }
-	                        /*
-	                        更新按钮状态
-	                        */
-	                        if (value === 1) {
-	                            this.playBtn.hide();
-	                            this.pauseBtn.show();
-	                        } else {
-	                            this.playBtn.show();
-	                            this.pauseBtn.hide();
-	                        }
-	                        /*
-	                         更新文字
-	                         */
-	                        if (value === 2) {
-	                            this.playBtn.find('.txt').text('继续');
-	                        } else {
-	                            this.playBtn.find('.txt').text('演示');
-	                        }
-	                        break;
-	                    }
-	                case 'showParallelLines':
-	                    {
-	                        if (value.length === 5) {
-	                            this.addParallelBtn.addClass("disabled");
-	                        } else {
-	                            this.addParallelBtn.removeClass("disabled");
-	                        }
-	                        if (value.length === 3) {
-	                            this.deleteParallelBtn.addClass("disabled");
-	                        } else {
-	                            this.deleteParallelBtn.removeClass("disabled");
-	                        }
-	                        break;
-	                    }
-	                case 'reset':
-	                    {
-	                        if (value === 0) {
-	                            this.resetBtn.addClass("disabled");
-	                        } else {
-	                            this.resetBtn.removeClass("disabled");
-	                        }
-	                        break;
-	                    }
-	                case 'selectedParallelLine':
-	                    {
-	                        if (value && parallelLength > 3) {
-	                            this.addParallelBtn.hide();
-	                            this.deleteParallelBtn.show();
-	                        } else {
-	                            this.addParallelBtn.show();
-	                            this.deleteParallelBtn.hide();
-	                        }
-	                        break;
-	                    }
-	                case 'segmentLengthShow':
-	                    {
-	                        if (value === 0) {
-	                            this.lineLengthBtn.removeClass("active");
-	                        } else {
-	                            this.lineLengthBtn.addClass("active");
-	                        }
-	                        break;
-	                    }
-	                case 'segmentRatioShow':
-	                    {
-	                        if (value === 0) {
-	                            this.proportionBtn.removeClass("active");
-	                        } else {
-	                            this.proportionBtn.addClass("active");
-	                        }
-	                        break;
-	                    }
-	            }
-	        }
-
-	        /**
-	         * 获得下一条平行线的名称
-	         * @param currentLines 当前平行线的集合
-	         * @private
-	         */
-
-	    }, {
-	        key: "_nextLine",
-	        value: function _nextLine(currentLines) {
-	            var allLinesPriority = this.app.config.parallelLinesPriority;
-	            var _iteratorNormalCompletion = true;
-	            var _didIteratorError = false;
-	            var _iteratorError = undefined;
-
-	            try {
-	                for (var _iterator = (0, _getIterator3.default)(allLinesPriority), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                    var line = _step.value;
-
-	                    if (currentLines.indexOf(line) === -1) {
-	                        return line;
-	                    }
-	                }
-	            } catch (err) {
-	                _didIteratorError = true;
-	                _iteratorError = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion && _iterator.return) {
-	                        _iterator.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError) {
-	                        throw _iteratorError;
-	                    }
-	                }
-	            }
-
-	            return null;
-	        }
-
-	        /**
-	         * 析构
-	         */
-
-	    }, {
-	        key: "destroy",
-	        value: function destroy() {
-	            this.container.off("click");
-	            FunctionControl._inst = null;
-	        }
-	    }]);
-	    return FunctionControl;
-	}(_BaseControl3.default);
-
-	exports.default = FunctionControl;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(299)))
-
-/***/ },
-/* 393 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(394), __esModule: true };
-
-/***/ },
-/* 394 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(355);
-	__webpack_require__(333);
-	module.exports = __webpack_require__(395);
-
-/***/ },
-/* 395 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var anObject = __webpack_require__(320)
-	  , get      = __webpack_require__(396);
-	module.exports = __webpack_require__(315).getIterator = function(it){
-	  var iterFn = get(it);
-	  if(typeof iterFn != 'function')throw TypeError(it + ' is not iterable!');
-	  return anObject(iterFn.call(it));
-	};
-
-/***/ },
-/* 396 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var classof   = __webpack_require__(397)
-	  , ITERATOR  = __webpack_require__(354)('iterator')
-	  , Iterators = __webpack_require__(339);
-	module.exports = __webpack_require__(315).getIteratorMethod = function(it){
-	  if(it != undefined)return it[ITERATOR]
-	    || it['@@iterator']
-	    || Iterators[classof(it)];
-	};
-
-/***/ },
-/* 397 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// getting tag from 19.1.3.6 Object.prototype.toString()
-	var cof = __webpack_require__(347)
-	  , TAG = __webpack_require__(354)('toStringTag')
-	  // ES3 wrong here
-	  , ARG = cof(function(){ return arguments; }()) == 'Arguments';
-
-	// fallback for IE11 Script Access Denied error
-	var tryGet = function(it, key){
-	  try {
-	    return it[key];
-	  } catch(e){ /* empty */ }
-	};
-
-	module.exports = function(it){
-	  var O, T, B;
-	  return it === undefined ? 'Undefined' : it === null ? 'Null'
-	    // @@toStringTag case
-	    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-	    // builtinTag case
-	    : ARG ? cof(O)
-	    // ES3 arguments fallback
-	    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-	};
-
-/***/ },
-/* 398 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 399 */,
-/* 400 */,
-/* 401 */,
-/* 402 */,
-/* 403 */,
-/* 404 */,
-/* 405 */,
-/* 406 */,
-/* 407 */,
-/* 408 */,
-/* 409 */,
-/* 410 */,
-/* 411 */,
-/* 412 */,
-/* 413 */,
-/* 414 */,
-/* 415 */,
-/* 416 */,
-/* 417 */,
-/* 418 */,
-/* 419 */,
-/* 420 */,
-/* 421 */,
-/* 422 */,
-/* 423 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	function winSize() {
-	    var t = 0,
-	        e = 0;
-	    return document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth && (t = document.documentElement.clientWidth, e = document.documentElement.clientHeight), {
-	        width: t,
-	        height: e
-	    };
-	}
-	function getRatio() {
-	    var t = winSize();
-	    return t.width / t.height > 1920 / 1080 ? t.height / 1080 : t.width / 1920;
-	}
-	function layoutReset() {
-	    var t = (document.getElementById("wrapper"), document.getElementById("layout")),
-	        e = 1920,
-	        n = 1080,
-	        i = 24,
-	        o = function o() {
-	        var o,
-	            d = window.layoutResetHandles,
-	            h = winSize(),
-	            u = 0,
-	            w = h.width,
-	            l = h.height;
-	        if (h.width / h.height <= e / n ? (u = h.width / e * i, w = h.width < e ? h.width : e, l = n * w / e, h.height > l) : (u = h.height / n * i, l = h.height < n ? h.height : n, w = e * l / n), t.style.fontSize = u + "px", d) for (o in d) {
-	            d[o]();
-	        }
-	    };
-	    o(), window.onresize = function () {
-	        o();
-	    };
-	}
-	window.onload = function () {
-	    layoutReset();
-	}, window.onLayoutReset = function (t) {
-	    window.layoutResetHandles || (window.layoutResetHandles = []), window.layoutResetHandles.push(t);
-	};
-
-/***/ },
-/* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
@@ -31101,6 +30622,485 @@
 	return Snap;
 	}));
 	}.call(window));
+
+/***/ },
+/* 393 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _getIterator2 = __webpack_require__(394);
+
+	var _getIterator3 = _interopRequireDefault(_getIterator2);
+
+	var _getPrototypeOf = __webpack_require__(302);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(328);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(329);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _createClass2 = __webpack_require__(376);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _inherits2 = __webpack_require__(380);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _BaseControl2 = __webpack_require__(388);
+
+	var _BaseControl3 = _interopRequireDefault(_BaseControl2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var FunctionControl = function (_BaseControl) {
+	    (0, _inherits3.default)(FunctionControl, _BaseControl);
+	    (0, _createClass3.default)(FunctionControl, null, [{
+	        key: "getInst",
+	        value: function getInst() {
+	            FunctionControl._inst = FunctionControl._inst || new FunctionControl();
+
+	            return FunctionControl._inst;
+	        }
+
+	        /**
+	         * 构造
+	         */
+
+	        /**
+	         * 单例
+	         */
+
+	    }]);
+
+	    function FunctionControl() {
+	        (0, _classCallCheck3.default)(this, FunctionControl);
+	        return (0, _possibleConstructorReturn3.default)(this, (FunctionControl.__proto__ || (0, _getPrototypeOf2.default)(FunctionControl)).call(this));
+	    }
+
+	    /**
+	     * 初始化事件
+	     */
+
+
+	    (0, _createClass3.default)(FunctionControl, [{
+	        key: "init",
+	        value: function init(app) {
+	            this.app = app; //绑定AppControl到当前对象
+	            /**
+	             * 按钮
+	             */
+	            this.container = this.app.$view.find(".ParallelLines_footer");
+	            this.lineLengthBtn = this.app.$view.find(".lineHeight"); //线段长度
+	            this.proportionBtn = this.app.$view.find(".proportion"); //线段比例
+	            this.addParallelBtn = this.app.$view.find(".addParallel"); //增加平行线
+	            this.deleteParallelBtn = this.app.$view.find(".deleteParallel"); //删除平行线
+	            this.playBtn = this.app.$view.find(".play"); //播放按钮
+	            this.pauseBtn = this.app.$view.find(".pause"); //暂停按钮
+	            this.resetBtn = this.app.$view.find(".reset"); //重置按钮
+	            this.bindEvent();
+	            return this;
+	        }
+
+	        /**
+	         * 绑定事件
+	         */
+
+	    }, {
+	        key: "bindEvent",
+	        value: function bindEvent() {
+	            var that = this;
+	            this.container.on("click", 'li', function (e) {
+	                e.stopPropagation();
+	                var $target = $(this);
+	                if ($target.hasClass('disabled')) {
+	                    return;
+	                }
+	                if ($target.hasClass('reset')) {
+	                    var lineAAngle = 65 * Math.PI / 180,
+	                        lineBAngle = 100 * Math.PI / 180;
+
+	                    that.app.data.animateShow = 0;
+	                    that.app.data.segmentLengthShow = 0;
+	                    that.app.data.segmentRatioShow = 0;
+	                    that.app.data.segmentShow = [];
+	                    that.app.data.showParallelLines = ['l1', 'l2', 'l3'];
+	                    that.app.data.selectedParallelLine = '';
+	                    that.app.data.formulaNeedUpdate = false;
+	                    that.app.data.reset = 0;
+	                    /*
+	                     重置相交线的位置和角度
+	                     */
+	                    that.app.data.lineAX = -that.app.data.lineAX;
+	                    that.app.data.lineBX = -that.app.data.lineBX;
+	                    that.app.config.lineAX = that.app.config.initLeftratios[0] * that.app.GraphControl.svgWidth;
+	                    that.app.config.lineBX = that.app.config.initLeftratios[1] * that.app.GraphControl.svgWidth;
+	                    that.app.data.lineAAngle = lineAAngle;
+	                    that.app.data.lineBAngle = lineBAngle;
+
+	                    /*
+	                    重置平行线的位置
+	                     */
+	                    that.app.data.y1 = -that.app.data.y1;
+	                    that.app.data.y2 = -that.app.data.y2;
+	                    that.app.data.y3 = -that.app.data.y3;
+	                    that.app.data.y4 = -that.app.data.y4;
+	                    that.app.data.y5 = -that.app.data.y5;
+
+	                    return;
+	                }
+	                that.app.data.reset = 1;
+	                if ($target.hasClass('play')) {
+	                    that.app.data.animateShow = 1;
+	                    that.app.data.selectedParallelLine = '';
+	                    return;
+	                }
+	                if ($target.hasClass('pause')) {
+	                    that.app.data.animateShow = 2;
+	                    return;
+	                }
+	                if ($target.hasClass('lineHeight')) {
+	                    that.app.data.segmentLengthShow = +!that.app.data.segmentLengthShow;
+	                    return;
+	                }
+	                if ($target.hasClass('proportion')) {
+	                    that.app.data.segmentRatioShow = +!that.app.data.segmentRatioShow;
+	                    return;
+	                }
+	                if ($target.hasClass('addParallel')) {
+	                    var showParallelLines = that.app.data.showParallelLines.concat();
+	                    showParallelLines.push(that._nextLine(showParallelLines));
+	                    that.app.data.showParallelLines = showParallelLines.concat();
+	                    return;
+	                }
+	                if ($target.hasClass('deleteParallel') && that.app.data) {
+	                    var _showParallelLines = that.app.data.showParallelLines.concat();
+	                    var index = null;
+	                    for (var i = 0; i < _showParallelLines.length; i++) {
+	                        if (_showParallelLines[i] === that.app.data.selectedParallelLine) {
+	                            index = i;
+	                            break;
+	                        }
+	                    }
+	                    _showParallelLines.splice(index, 1);
+	                    that.app.data.showParallelLines = _showParallelLines.concat();
+	                    that.app.data.selectedParallelLine = '';
+	                    return;
+	                }
+	            });
+	        }
+
+	        /**
+	         * 更新按钮状态
+	         * @param item 被更新的数据项的名称
+	         * @param value 被更新的数据项的值
+	         * @param parallelLength 当前平行线的条数,可选，在更新selectedParallelLine时需传入
+	         */
+
+	    }, {
+	        key: "updateButtonState",
+	        value: function updateButtonState(item, value, parallelLength) {
+	            switch (item) {
+	                case 'animateShow':
+	                    {
+	                        /*
+	                        更新其他关系的按钮状态
+	                         */
+	                        if (value > 0) {
+	                            this.proportionBtn.addClass("disabled");
+	                            this.addParallelBtn.addClass("disabled");
+	                            this.deleteParallelBtn.addClass("disabled");
+	                        } else {
+	                            this.proportionBtn.removeClass("disabled");
+	                            this.deleteParallelBtn.removeClass("disabled");
+	                            if (this.app.data && this.app.data['showParallelLines'].length > 4) {
+	                                this.addParallelBtn.addClass("disabled");
+	                            } else {
+	                                this.addParallelBtn.removeClass("disabled");
+	                            }
+	                        }
+	                        /*
+	                        更新按钮状态
+	                        */
+	                        if (value === 1) {
+	                            this.playBtn.hide();
+	                            this.pauseBtn.show();
+	                        } else {
+	                            this.playBtn.show();
+	                            this.pauseBtn.hide();
+	                        }
+	                        /*
+	                         更新文字
+	                         */
+	                        if (value === 2) {
+	                            this.playBtn.find('.txt').text('继续');
+	                        } else {
+	                            this.playBtn.find('.txt').text('演示');
+	                        }
+	                        break;
+	                    }
+	                case 'showParallelLines':
+	                    {
+	                        if (value.length === 5) {
+	                            this.addParallelBtn.addClass("disabled");
+	                        } else {
+	                            this.addParallelBtn.removeClass("disabled");
+	                        }
+	                        if (value.length === 3) {
+	                            this.deleteParallelBtn.addClass("disabled");
+	                        } else {
+	                            this.deleteParallelBtn.removeClass("disabled");
+	                        }
+	                        break;
+	                    }
+	                case 'reset':
+	                    {
+	                        if (value === 0) {
+	                            this.resetBtn.addClass("disabled");
+	                        } else {
+	                            this.resetBtn.removeClass("disabled");
+	                        }
+	                        break;
+	                    }
+	                case 'selectedParallelLine':
+	                    {
+	                        if (value && parallelLength > 3) {
+	                            this.addParallelBtn.hide();
+	                            this.deleteParallelBtn.show();
+	                        } else {
+	                            this.addParallelBtn.show();
+	                            this.deleteParallelBtn.hide();
+	                        }
+	                        break;
+	                    }
+	                case 'segmentLengthShow':
+	                    {
+	                        if (value === 0) {
+	                            this.lineLengthBtn.removeClass("active");
+	                        } else {
+	                            this.lineLengthBtn.addClass("active");
+	                        }
+	                        break;
+	                    }
+	                case 'segmentRatioShow':
+	                    {
+	                        if (value === 0) {
+	                            this.proportionBtn.removeClass("active");
+	                        } else {
+	                            this.proportionBtn.addClass("active");
+	                        }
+	                        break;
+	                    }
+	            }
+	        }
+
+	        /**
+	         * 获得下一条平行线的名称
+	         * @param currentLines 当前平行线的集合
+	         * @private
+	         */
+
+	    }, {
+	        key: "_nextLine",
+	        value: function _nextLine(currentLines) {
+	            var allLinesPriority = this.app.config.parallelLinesPriority;
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
+
+	            try {
+	                for (var _iterator = (0, _getIterator3.default)(allLinesPriority), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var line = _step.value;
+
+	                    if (currentLines.indexOf(line) === -1) {
+	                        return line;
+	                    }
+	                }
+	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator.return) {
+	                        _iterator.return();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
+	            }
+
+	            return null;
+	        }
+
+	        /**
+	         * 析构
+	         */
+
+	    }, {
+	        key: "destroy",
+	        value: function destroy() {
+	            this.container.off("click");
+	            FunctionControl._inst = null;
+	        }
+	    }]);
+	    return FunctionControl;
+	}(_BaseControl3.default);
+
+	exports.default = FunctionControl;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(299)))
+
+/***/ },
+/* 394 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(395), __esModule: true };
+
+/***/ },
+/* 395 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(355);
+	__webpack_require__(333);
+	module.exports = __webpack_require__(396);
+
+/***/ },
+/* 396 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var anObject = __webpack_require__(320)
+	  , get      = __webpack_require__(397);
+	module.exports = __webpack_require__(315).getIterator = function(it){
+	  var iterFn = get(it);
+	  if(typeof iterFn != 'function')throw TypeError(it + ' is not iterable!');
+	  return anObject(iterFn.call(it));
+	};
+
+/***/ },
+/* 397 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var classof   = __webpack_require__(398)
+	  , ITERATOR  = __webpack_require__(354)('iterator')
+	  , Iterators = __webpack_require__(339);
+	module.exports = __webpack_require__(315).getIteratorMethod = function(it){
+	  if(it != undefined)return it[ITERATOR]
+	    || it['@@iterator']
+	    || Iterators[classof(it)];
+	};
+
+/***/ },
+/* 398 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// getting tag from 19.1.3.6 Object.prototype.toString()
+	var cof = __webpack_require__(347)
+	  , TAG = __webpack_require__(354)('toStringTag')
+	  // ES3 wrong here
+	  , ARG = cof(function(){ return arguments; }()) == 'Arguments';
+
+	// fallback for IE11 Script Access Denied error
+	var tryGet = function(it, key){
+	  try {
+	    return it[key];
+	  } catch(e){ /* empty */ }
+	};
+
+	module.exports = function(it){
+	  var O, T, B;
+	  return it === undefined ? 'Undefined' : it === null ? 'Null'
+	    // @@toStringTag case
+	    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+	    // builtinTag case
+	    : ARG ? cof(O)
+	    // ES3 arguments fallback
+	    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+	};
+
+/***/ },
+/* 399 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */,
+/* 416 */,
+/* 417 */,
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */,
+/* 423 */,
+/* 424 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	function winSize() {
+	    var t = 0,
+	        e = 0;
+	    return document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth && (t = document.documentElement.clientWidth, e = document.documentElement.clientHeight), {
+	        width: t,
+	        height: e
+	    };
+	}
+	function getRatio() {
+	    var t = winSize();
+	    return t.width / t.height > 1920 / 1080 ? t.height / 1080 : t.width / 1920;
+	}
+	function layoutReset() {
+	    var t = (document.getElementById("wrapper"), document.getElementById("layout")),
+	        e = 1920,
+	        n = 1080,
+	        i = 24,
+	        o = function o() {
+	        var o,
+	            d = window.layoutResetHandles,
+	            h = winSize(),
+	            u = 0,
+	            w = h.width,
+	            l = h.height;
+	        if (h.width / h.height <= e / n ? (u = h.width / e * i, w = h.width < e ? h.width : e, l = n * w / e, h.height > l) : (u = h.height / n * i, l = h.height < n ? h.height : n, w = e * l / n), t.style.fontSize = u + "px", d) for (o in d) {
+	            d[o]();
+	        }
+	    };
+	    o(), window.onresize = function () {
+	        o();
+	    };
+	}
+	window.onload = function () {
+	    layoutReset();
+	}, window.onLayoutReset = function (t) {
+	    window.layoutResetHandles || (window.layoutResetHandles = []), window.layoutResetHandles.push(t);
+	};
 
 /***/ }
 /******/ ]);

@@ -1,4 +1,5 @@
 var path = require('path');
+var CopyAssetsPlugin = require('copyassets-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var combineLoaders = require("webpack-combine-loaders");
@@ -7,7 +8,7 @@ var StyleLintPlugin = require('stylelint-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = {
-	entry: ['babel-polyfill','./src/app.js'],
+	entry: ['babel-polyfill', './src/app.js'],
 	output: {
 		path: './dist',
 		filename: '[name].js'
@@ -29,18 +30,18 @@ module.exports = {
 		}, {
 			test: /\.(scss)$/,
 			exclude: [path.resolve(__dirname, "node_modules")],
-			loader: ExtractTextPlugin.extract('style-loader','css-loader!sass-loader'),
-				/*combineLoaders([{
-					loader: 'style-loader'
-				}, {
-					loader: 'css-loader',
-					query: {
-						modules: true,
-						localIdentName: '[name]__[local]___[hash:base64:5]'
-					}
-				}, {
-					loader: 'sass-loader'
-				}])*/
+			loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader'),
+			/*combineLoaders([{
+				loader: 'style-loader'
+			}, {
+				loader: 'css-loader',
+				query: {
+					modules: true,
+					localIdentName: '[name]__[local]___[hash:base64:5]'
+				}
+			}, {
+				loader: 'sass-loader'
+			}])*/
 		}, {
 			test: /\.png$/,
 			loader: "url-loader?limit=100000"
@@ -79,6 +80,7 @@ module.exports = {
 			css: ['styles.css']
 		}),
 		new CleanWebpackPlugin(['dist']),
+		// new CopyAssetsPlugin(['./dist','./']),
 		new webpack.ProvidePlugin({
 			$: "jquery",
 			jQuery: "jquery"

@@ -1,0 +1,10 @@
+{
+    "title": "平行线分线段",
+    "btn_segment_length": "线段长度",
+    "btn_segment_ratio": "线段比例",
+    "btn_add_line": "增加平行线",
+    "btn_delete_line": "删除平行线",
+    "btn_animate": "演示",
+    "btn_pause": "暂停",
+    "btn_reset": "重置"
+}

@@ -1,0 +1,418 @@
+@charset "UTF-8";
+$baseFontSize: 24px !default;
+$baseFontFamily: 'Microsoft YaHei', Helvetica, Arial, sans-serif !default;
+@function pxToEm($px, $baseSize:$baseFontSize) {
+	@return $px / $baseSize * 1em;
+}
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body{
+	// margin: 5%;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	font-family: 'Microsoft YaHei',Helvetica,Arial,sans-serif;
+	visibility: hidden;
+}
+.container{    
+	width: 100%;
+    height: 100%;
+    position: relative;
+    background: #afc7d8;
+    ul{
+    	list-style: none;
+    }
+	.hide_dom {
+		display: none;
+	}
+	.hidden_svg{
+		visibility: hidden;
+		pointer-events: none;
+	}
+	.exam_skin_wood {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		background: #afc7d8;
+		.TimesNewRoman {
+			font-family: 'Times New Roman';
+		}
+		.TimesNewRomanItalic{
+			font-family: 'Times New Roman Italic';
+		}
+		.times72{
+			font-size: pxToEm(72px);
+			display: inline-block;
+			font-weight: bold;
+			font-style: italic;
+		}
+		.times60{
+			font-size: pxToEm(60px);
+			display: inline-block;
+			font-weight: bold;
+		}
+		.remark em.times60{
+			font-weight:normal;
+		}
+		.times36{
+			font-size: 0.6em;
+			display: inline-block;
+			font-weight: bold;
+			vertical-align: sub;
+		}
+		.yahei60{
+			font-size: pxToEm(60px);
+		}
+		.ParallelLines_wrapper{
+			width: 100%;
+			height: 100%;
+			position: relative;
+			padding: 2.66667em 4em 5em;
+		}
+		.ParallelLines_body{
+			width: 100%;
+			height: 100%;
+			position: relative;
+		}
+		.ParallelLines_stage{
+			position: relative;
+			width:60%;
+			height:100%;
+			background: #bfd3e2;
+			float:left;
+		}
+		.parallel-container {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			.textA,.textB{
+				pointer-events: none;
+				font-family: 'Times New Roman';
+				font-size: pxToEm(72px);
+				line-height: 1;
+				font-style: normal;
+				font-weight: bold;
+
+			}
+			.outsideCircle{
+				fill-opacity: 0;
+			}
+			.selectedCircle{
+				fill-opacity: 0.5;
+			}
+			.text_point{
+				pointer-events: none;
+				tspan{
+					font-family: 'Times New Roman Italic';
+					font-size: pxToEm(60px);
+					line-height: pxToEm(60px);
+					font-weight: bold;
+					font-style: italic;	
+					dominant-baseline: alphabetic;
+				}
+				tspan+tspan{    
+					font-family: 'Times New Roman';
+					font-size: pxToEm(36px);
+					line-height: pxToEm(36px);
+					font-style: normal;
+				    dominant-baseline: middle;
+					// baseline-shift: sub;
+				}
+			}
+			.text_parallel_line{
+				tspan{
+				font-family: 'Times New Roman Italic';
+					font-size: pxToEm(72px);
+					line-height: 1;
+					font-style: italic;
+				}
+				tspan+tspan{    
+					font-family: 'Times New Roman';
+					font-size: pxToEm(48px);
+					line-height: 1;
+					font-style: normal;
+					font-weight: bold;
+				}
+			}
+			.segment{
+				pointer-events: none;
+			}
+			.text_segment{
+					font-family: 'Times New Roman';
+					font-size: pxToEm(72px);
+					line-height: pxToEm(72px);
+					font-weight: bold;				
+			}
+			.parallelLineSelected{
+				stroke: #ffe013
+			}
+		}
+		//侧边线段比例公式 star
+		.ParallelLines_sidebar{
+			width:40%;
+			height:100%;
+			float:right;
+			padding:pxToEm(60px) 0  0 pxToEm(50px);
+		}
+		.ParallelLines_formula{
+			width:100%;
+			height:100%;
+			letter-spacing: 0.5px;
+			text-align: left;
+			.formula_many{
+				margin:0 auto;
+				.rowTxt{
+					display: block;
+					&.first{
+						padding-left: 1.7em;
+					}
+				}
+				em.yahei60{
+					font-size: pxToEm(60px);
+					font-weight: bold;
+					padding: 0 0.1em 0 0.2em;
+				}
+				.rowTxt i{
+					font-style: italic;
+					& sub{
+						font-style: normal;
+					}
+				}
+			}
+			.formula_equal{
+				margin-top:2em;
+			}
+			.formula_little{
+				span{
+					display: inline-block;
+					text-align: center;
+					vertical-align: middle;
+				}
+				.rowTxt i{
+					font-style: italic;
+				}
+				.rowTxt b{
+					display: block;
+					width:pxToEm(120px);
+					height: pxToEm(5px);
+					background: #333;
+					margin:pxToEm(20px) 0;
+				}
+				i.equal{
+					vertical-align: middle;
+					padding-left: .2em;
+				}
+				i.verMid{
+					vertical-align: middle;
+				}
+				.remark{
+					display: block;
+					text-align: left;
+					line-height: 3.5em;
+				}
+			}
+		}
+		//侧边线段比例公式 star
+
+		//底部样式
+		.ParallelLines_footer{
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			height: 5em;
+			width: 100%;
+			background: #cfdee9;
+			padding: 0 4em;
+			display: -webkit-box;
+			li.disabled .txt{
+				color:#a9b6c0;
+			}
+		}
+		.txt{
+			display: block;
+			text-align: center;
+			font-size: 1.5em;
+			white-space: nowrap;
+			color: #292525;
+			margin-top: pxToEm(6px);
+		}
+		.ParallelLines_left{
+			width:60%;
+			border-right:1px solid #e7f3fc;
+			display: -webkit-box;
+			-webkit-box-align: center;
+			-webkit-box-pack: center;
+			padding:0 pxToEm(130px);
+			li{
+				float:left;
+				margin:0 pxToEm(50px);
+				.icon{
+					height: pxToEm(56px);
+					display: block;
+					i{
+						display: block;
+						width: pxToEm(82px);
+						height: pxToEm(56px);
+						margin: 0 auto;
+						overflow: hidden;
+						background-repeat: no-repeat;
+					}
+
+				}
+				&.lineHeight {
+					 i{
+						 background:url(../resources/images/lineHeight-icon.png);
+						 background-size: 100% 100%;
+					 }
+					 &:active i{
+						 background:url(../resources/images/lineHeight-icon-on.png);
+						 background-size: 100% 100%;
+					 }
+					 &.active i{
+						 background:url(../resources/images/lineHeight-icon-on.png);
+						 background-size: 100% 100%;
+					 }
+					 &.disabled i{
+						 background:url(../resources/images/lineHeight-icon-dis.png);
+						 background-size: 100% 100%;
+					 }
+				 }
+				&.proportion{
+					i{
+						background:url(../resources/images/proportion-icon.png);
+						background-size: 100% 100%;
+					}
+					&:active i{
+						background:url(../resources/images/proportion-icon-on.png);
+						background-size: 100% 100%;
+					}
+					&.active i{
+						background:url(../resources/images/proportion-icon-on.png);
+						background-size: 100% 100%;
+					}
+					&.disabled i{
+						background:url(../resources/images/proportion-icon-dis.png);
+						background-size: 100% 100%;
+					}
+				}
+				&.addParallel{
+					i{
+						background:url(../resources/images/addParallel-icon.png);
+						background-size: 100% 100%;
+					}
+					&:active i{
+						background:url(../resources/images/addParallel-icon-on.png);
+						background-size: 100% 100%;
+					}
+					&.disabled i{
+						background:url(../resources/images/addParallel-icon-dis.png);
+						background-size: 100% 100%;
+					}
+				}
+				&.deleteParallel{
+					i{
+						background:url(../resources/images/delete-icon.png);
+						background-size: 100% 100%;
+					}
+					&:active i{
+						background:url(../resources/images/delete-icon-on.png);
+						background-size: 100% 100%;
+					}
+					&.disabled i{
+						background:url(../resources/images/delete-icon-dis.png);
+						background-size: 100% 100%;
+					}
+				}
+			}
+
+		}
+		.ParallelLines_right{
+			width:40%;
+			border-left:1px solid #b3c1cb;
+			display: -webkit-box;
+			-webkit-box-align: center;
+			-webkit-box-pack: center;
+			padding: 0 4.7916666667em 0.5em;
+			.txt{
+				margin-top:0.1em;
+			}
+			li{
+				float:left;
+				margin:0 pxToEm(70px);
+				.icon{
+					display: block;
+					i{
+						display: block;
+						width: pxToEm(70px);
+						height: pxToEm(70px);
+						margin: 0 auto;
+						overflow: hidden;
+						background-repeat: no-repeat;
+					}
+
+				}
+
+				&.play {
+					i{
+						background:url(../resources/images/play.png);
+						background-size: 100% 100%;
+					}
+					&:active i{
+						background:url(../resources/images/play-on.png);
+						background-size: 100% 100%;
+					}
+					&.active i{
+						background:url(../resources/images/play-on.png);
+						background-size: 100% 100%;
+					}
+					&.disabled i{
+						background:url(../resources/images/play-dis.png);
+						background-size: 100% 100%;
+					}
+
+				}
+				&.pause{
+					i{
+						background:url(../resources/images/pause-icon.png);
+						background-size: 100% 100%;
+					}
+					&:active i{
+						background:url(../resources/images/pause-icon-on.png);
+						background-size: 100% 100%;
+					}
+					&.active i{
+						background:url(../resources/images/pause-icon-on.png);
+						background-size: 100% 100%;
+					}
+					&.disabled i{
+						background:url(../resources/images/pause-icon-dis.png);
+						background-size: 100% 100%;
+					}
+				}
+				&.reset{
+					i{
+						background:url(../resources/images/revert.png);
+						background-size: 100% 100%;
+					}
+					&:active i{
+						background:url(../resources/images/revert-on.png);
+						background-size: 100% 100%;
+					}
+					&.active i{
+						background:url(../resources/images/revert-on.png);
+						background-size: 100% 100%;
+					}
+					&.disabled i{
+						background:url(../resources/images/revert-dis.png);
+						background-size: 100% 100%;
+					}
+				}
+			}
+		}
+	}
+}

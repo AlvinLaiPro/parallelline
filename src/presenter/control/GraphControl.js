@@ -1,5 +1,6 @@
 import BaseControl from './BaseControl'
 let Snap = require('snapsvg');
+let TimelineMax = require('TimelineMax');
 
 export default class GraphControl extends BaseControl {
 	/**

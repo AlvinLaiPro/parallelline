@@ -80,7 +80,7 @@ module.exports = {
 			css: ['styles.css']
 		}),
 		new CleanWebpackPlugin(['dist']),
-		// new CopyAssetsPlugin(['./dist','./']),
+		new CopyAssetsPlugin(['./dist','./docs']),
 		new webpack.ProvidePlugin({
 			$: "jquery",
 			jQuery: "jquery"

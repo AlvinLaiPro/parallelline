@@ -1,4 +1,5 @@
 import BaseControl from './BaseControl'
+let Snap = require('snapsvg');
 
 export default class GraphControl extends BaseControl {
 	/**
